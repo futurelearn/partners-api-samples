@@ -1,0 +1,75 @@
+<h1>Enrolment request admin area</h1>
+
+<h2>Degree enrolment requests</h2>
+<%- if @degree_enrolment_requests.empty? %>
+  <p>There are no degree enrolment requests.</p>
+<%- else %>
+  <table>
+    <tr>
+      <td>ID</td>
+      <td>Learner</td>
+      <td>Status</td>
+      <td>Degree</td>
+      <td>Actions</td>
+    </tr>
+    <% @degree_enrolment_requests.each do |enrolment_request| %>
+    <tr>
+      <td>
+        <%= enrolment_request.id %>
+      </td>
+      <td>
+        <%= "#{enrolment_request.learner.first_name} #{enrolment_request.learner.last_name}" %>
+      </td>
+      <td>
+        <%= enrolment_request.status %>
+      </td>
+      <td>
+        <%= enrolment_request.degree.title %>
+      </td>
+      <td>
+        <%= link_to 'Confirm', admin_enrolment_request_path(enrolment_request) %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+<%- end %>
+
+<h2>Program enrolment requests</h2>
+<%- if @program_enrolment_requests.empty? %>
+  <p>There are no degree enrolment requests.</p>
+<%- else %>
+  <table>
+    <tr>
+      <td>ID</td>
+      <td>Learner</td>
+      <td>Status</td>
+      <td>Program</td>
+      <td>Program run</td>
+      <td>Actions</td>
+    </tr>
+    <% @program_enrolment_requests.each do |enrolment_request| %>
+    <tr>
+      <td>
+        <%= enrolment_request.id %>
+      </td>
+      <td>
+        <%= "#{enrolment_request.learner.first_name} #{enrolment_request.learner.last_name}" %>
+      </td>
+      <td>
+        <%= enrolment_request.status %>
+      </td>
+      <td>
+        <%= enrolment_request.program_run.title %>
+      </td>
+      <td>
+        <%= enrolment_request.program_run.code %>
+      </td>
+      <td>
+        <% if !enrolment_request.confirmed? %>
+          <%= link_to('Confirm', admin_enrolment_request_path(enrolment_request)) %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+<%- end %>

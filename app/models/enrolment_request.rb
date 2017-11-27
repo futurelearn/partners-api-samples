@@ -3,6 +3,10 @@ class EnrolmentRequest < ApplicationRecord
   Degree = Struct.new(:title, :code)
   ProgramRun = Struct.new(:title, :code)
 
+  def confirmed?
+    status == 'confirmed'
+  end
+
   def degree
     @degree ||=  begin
       degree_hash = FutureLearnApi::Degree.new.get(degree_uuid)

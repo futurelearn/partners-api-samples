@@ -1,24 +1,21 @@
-# README
+# FutureLearn-initiated enrolment sample app
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This sample application is intended for use by our partners and provides a proof
+of concept for integrating with the FutureLearn platform using the
+FutureLearn-initiated enrolment flow.
 
-Things you may want to cover:
+Please speak to your partnership manager in order to receive your authentication
+credentials and gain access to the relevant API documentation.
 
-* Ruby version
+## How to get started
 
-* System dependencies
+1. Install the required gems: `bundle install`
+2. Create the database: `bundle exec rails db:create`
+3. Start the server `bundle exec rails server`
 
-* Configuration
+Note that you will need to set the following environment variables before
+starting up the server:
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- `API_CONSUMER_KEY` e.g `sample-uni.test`
+- `API_SHARED_SECRET`
+- `API_BASE_URL` e.g. `https://sandbox-degrees-api.futurelearn.com/partners`

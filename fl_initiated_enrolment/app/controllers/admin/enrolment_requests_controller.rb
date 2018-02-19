@@ -8,16 +8,15 @@ class Admin::EnrolmentRequestsController < ApplicationController
 
   def confirm
     organisation_membership_uuid = find_or_create_organisation_membership(params[:external_learner_id])
+    enrolment_request_attributes = confirm_enrolment_request(organisation_membership_uuid)
 
     if @enrolment_request.request_type == 'degree'
-      degree_enrolment_uuid = confirm_degree_enrolment_request(organisation_membership_uuid)
       program_run_uuid = find_program_run_uuid
+      degree_enrolment_uuid = enrolment_request_attributes['degree_enrolment']['uuid']
       create_program_enrolments(organisation_membership_uuid, program_run_uuid, degree_enrolment_uuid)
-    else
-      confirm_program_enrolment_request(organisation_membership_uuid)
     end
 
-    @enrolment_request.update!(status: 'confirmed')
+    @enrolment_request.update!(status: enrolment_request_attributes['status'])
 
     flash[:notice] = 'Enrolment request successfully confirmed!'
     redirect_to admin_enrolment_requests_path
@@ -27,20 +26,6 @@ class Admin::EnrolmentRequestsController < ApplicationController
 
   def find_enrolment_request
     @enrolment_request = EnrolmentRequest.find(params[:id])
-  end
-
-  def confirm_degree_enrolment_request(organisation_membership_uuid)
-    enrolment_request_hash = FutureLearnApi::EnrolmentRequest.new.patch(
-      @enrolment_request.uuid,
-      {
-        organisation_membership: {
-          uuid: organisation_membership_uuid,
-        },
-        status: 'confirmed'
-      }
-    )
-
-    enrolment_request_hash['degree_enrolment']['uuid']
   end
 
   def create_program_enrolments(organisation_membership_uuid, program_run_uuid, degree_enrolment_uuid)
@@ -64,25 +49,15 @@ class Admin::EnrolmentRequestsController < ApplicationController
   end
 
   def find_or_create_organisation_membership(external_learner_id)
-    org_membership_hash = FutureLearnApi::OrganisationMembership.new.find(external_learner_id)
-    org_membership_uuid = org_membership_hash['uuid']
+    org_membership_uuid = FutureLearnApi::OrganisationMembership.new.find(external_learner_id)['uuid']
 
-    if org_membership_hash['uuid'].present?
-      org_membership_hash['uuid']
-    else
-      org_membership_hash = FutureLearnApi::OrganisationMembership.new.post(
-        external_learner_id: external_learner_id,
-        learner: {
-          uuid: @enrolment_request.learner_uuid
-        }
-      )
-
-      org_membership_hash['uuid']
+    if org_membership_uuid.nil?
+      org_membership_uuid = FutureLearnApi::OrganisationMembership.new.post(external_learner_id: external_learner_id)['uuid']
     end
   end
 
-  def confirm_program_enrolment_request(organisation_membership_uuid)
-    enrolment_request_hash = FutureLearnApi::EnrolmentRequest.new.patch(
+  def confirm_enrolment_request(organisation_membership_uuid)
+    FutureLearnApi::EnrolmentRequest.new.patch(
       @enrolment_request.uuid,
       {
         organisation_membership: {

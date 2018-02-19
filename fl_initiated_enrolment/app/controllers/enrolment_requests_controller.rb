@@ -3,7 +3,14 @@ class EnrolmentRequestsController < ApplicationController
 
   def update
     @enrolment_request.update!(enrolment_request_attributes)
-    redirect_to enrolment_request_path(@enrolment_request)
+
+    if params[:submit]
+      enrolment_request_attributes = FutureLearnApi::EnrolmentRequest.new.patch(@enrolment_request.uuid, status: 'submitted')
+      @enrolment_request.update!(status: enrolment_request_attributes['status'])
+      redirect_to enrolment_request_attributes['return_url']
+    else
+      redirect_to enrolment_request_path(@enrolment_request)
+    end
   end
 
   def apply

@@ -14,7 +14,8 @@
     <%= f.text_field :last_name %>
     <%= f.label :email %>
     <%= f.text_field :email %>
-    <%= f.submit 'Save' %>
+    <%= f.submit 'Save draft', name: :save_draft %>
+    <%= f.submit 'Submit application', name: :submit %>
     <%= link_to('Back to FutureLearn', return_to_fl_enrolment_request_path) %>
   <% end %>
 </div>

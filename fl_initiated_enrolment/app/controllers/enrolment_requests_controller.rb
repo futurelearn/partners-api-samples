@@ -1,19 +1,12 @@
 class EnrolmentRequestsController < ApplicationController
-  before_action :find_or_create_enrolment_request
+  before_action :find_enrolment_request, only: [:show, :update]
 
-  def new
+  def update
+    @enrolment_request.update!(enrolment_request_attributes)
+    redirect_to enrolment_request_path(@enrolment_request)
   end
 
-  def create
-    FutureLearnApi::EnrolmentRequest.new.patch(@enrolment_request.uuid, status: status)
-    @enrolment_request.update!(status: status)
-
-    redirect_to @enrolment_request.return_url
-  end
-
-  private
-
-  def find_or_create_enrolment_request
+  def apply
     token = params[:token]
 
     if enrolment_request = EnrolmentRequest.find_by_token(token)
@@ -46,7 +39,20 @@ class EnrolmentRequestsController < ApplicationController
       end
 
       @enrolment_request.save!
-      @enrolment_request
     end
+
+    redirect_to enrolment_request_path(@enrolment_request)
+  end
+
+  private
+
+  def find_enrolment_request
+    @enrolment_request = EnrolmentRequest.find_by_id!(params[:id])
+  end
+
+  def enrolment_request_attributes
+    params
+      .require(:enrolment_request)
+      .permit(:first_name, :last_name, :email)
   end
 end

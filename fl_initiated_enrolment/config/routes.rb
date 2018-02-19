@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  get '/apply', to: 'enrolment_requests#new'
-  post '/apply', to: 'enrolment_requests#create'
+  resources :enrolment_requests, only: [:show, :update]
+
+  get '/apply', to: 'enrolment_requests#apply'
 
   namespace :admin do
     root to: 'enrolment_requests#index'

@@ -1,0 +1,19 @@
+<h1>University application form</h1>
+
+<div>
+  <%- if @enrolment_request.request_type == 'degree' %>
+    <p>You are applying to enrol on <%= @enrolment_request.degree_title %> (<%= @enrolment_request.degree_code %>)</p>
+  <% else %>
+    <p>You are applying to enrol on <%= @enrolment_request.program_title %> (<%= @enrolment_request.program_code %>)</p>
+  <% end %>
+
+  <%= form_for(@enrolment_request) do |f| %>
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+    <%= f.submit 'Save' %>
+  <% end %>
+</div>

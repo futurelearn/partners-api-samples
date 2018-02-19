@@ -10,17 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171121152916) do
+ActiveRecord::Schema.define(version: 20180219163505) do
 
   create_table "enrolment_requests", force: :cascade do |t|
     t.string "uuid"
     t.string "token"
     t.string "request_type"
     t.string "status", default: "new"
-    t.string "learner_uuid"
-    t.string "degree_uuid"
-    t.string "program_run_uuid"
     t.string "return_url"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "degree_title"
+    t.string "degree_code"
+    t.string "program_title"
+    t.string "program_code"
+    t.string "program_run_code"
   end
 
 end

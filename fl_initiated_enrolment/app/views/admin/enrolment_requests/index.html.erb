@@ -18,13 +18,13 @@
         <%= enrolment_request.id %>
       </td>
       <td>
-        <%= "#{enrolment_request.learner.first_name} #{enrolment_request.learner.last_name}" %>
+        <%= "#{enrolment_request.first_name} #{enrolment_request.last_name}" %>
       </td>
       <td>
         <%= enrolment_request.status %>
       </td>
       <td>
-        <%= enrolment_request.degree.title %>
+        <%= enrolment_request.degree_title %>
       </td>
       <td>
         <%= link_to 'Confirm', admin_enrolment_request_path(enrolment_request) %>
@@ -44,7 +44,7 @@
       <td>Learner</td>
       <td>Status</td>
       <td>Program</td>
-      <td>Program run</td>
+      <td>Run</td>
       <td>Actions</td>
     </tr>
     <% @program_enrolment_requests.each do |enrolment_request| %>
@@ -53,16 +53,16 @@
         <%= enrolment_request.id %>
       </td>
       <td>
-        <%= "#{enrolment_request.learner.first_name} #{enrolment_request.learner.last_name}" %>
+        <%= "#{enrolment_request.first_name} #{enrolment_request.last_name}" %>
       </td>
       <td>
         <%= enrolment_request.status %>
       </td>
       <td>
-        <%= enrolment_request.program_run.title %>
+        <%= enrolment_request.program_code %>: <%= enrolment_request.program_title %>
       </td>
       <td>
-        <%= enrolment_request.program_run.code %>
+        <%= enrolment_request.program_run_code %>
       </td>
       <td>
         <% if !enrolment_request.confirmed? %>

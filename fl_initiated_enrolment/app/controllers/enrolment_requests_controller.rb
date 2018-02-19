@@ -1,5 +1,5 @@
 class EnrolmentRequestsController < ApplicationController
-  before_action :find_enrolment_request, only: [:show, :update]
+  before_action :find_enrolment_request, only: [:show, :update, :return_to_fl]
 
   def update
     @enrolment_request.update!(enrolment_request_attributes)
@@ -42,6 +42,11 @@ class EnrolmentRequestsController < ApplicationController
     end
 
     redirect_to enrolment_request_path(@enrolment_request)
+  end
+
+  def return_to_fl
+    enrolment_request_attributes = FutureLearnApi::EnrolmentRequest.new.get(@enrolment_request.uuid)
+    redirect_to enrolment_request_attributes['return_url']
   end
 
   private

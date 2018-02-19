@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :enrolment_requests, only: [:show, :update]
+  resources :enrolment_requests, only: [:show, :update] do
+    get :return_to_fl, on: :member, path: 'return'
+  end
 
   get '/apply', to: 'enrolment_requests#apply'
 

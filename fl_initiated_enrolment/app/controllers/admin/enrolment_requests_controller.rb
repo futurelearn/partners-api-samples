@@ -1,5 +1,5 @@
 class Admin::EnrolmentRequestsController < ApplicationController
-  before_action :find_enrolment_request, only: [:confirm, :show]
+  before_action :find_enrolment_request, only: [:confirm_form, :confirm]
 
   def index
     @degree_enrolment_requests = EnrolmentRequest.where(request_type: 'degree')

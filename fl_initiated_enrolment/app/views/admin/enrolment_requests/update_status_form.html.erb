@@ -1,0 +1,10 @@
+<h1>Update enrolment request status</h1>
+<%= form_tag update_status_admin_enrolment_request_path(@enrolment_request) do %>
+  <%= label_tag :status, 'Status' %>
+  <%= select_tag :status, enrolment_request_status_options(@enrolment_request) %>
+
+  <%= label_tag :status_message, 'Status message' %>
+  <%= text_field_tag :status_message %>
+
+  <%= submit_tag 'Update status' %>
+<% end %>

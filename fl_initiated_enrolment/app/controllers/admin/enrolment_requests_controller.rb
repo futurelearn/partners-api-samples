@@ -1,5 +1,5 @@
 class Admin::EnrolmentRequestsController < ApplicationController
-  before_action :find_enrolment_request, only: [:confirm_form, :confirm]
+  before_action :find_enrolment_request, except: [:index]
 
   def index
     @degree_enrolment_requests = EnrolmentRequest.where(request_type: 'degree')
@@ -15,6 +15,15 @@ class Admin::EnrolmentRequestsController < ApplicationController
       degree_enrolment_uuid = enrolment_request_attributes['degree_enrolment']['uuid']
       create_program_enrolments(organisation_membership_uuid, program_run_uuid, degree_enrolment_uuid)
     end
+
+    @enrolment_request.update!(status: enrolment_request_attributes['status'])
+
+    flash[:notice] = 'Enrolment request successfully confirmed!'
+    redirect_to admin_enrolment_requests_path
+  end
+
+  def update_status
+    enrolment_request_attributes = update_enrolment_request_status(params[:status], params[:status_message])
 
     @enrolment_request.update!(status: enrolment_request_attributes['status'])
 
@@ -54,6 +63,16 @@ class Admin::EnrolmentRequestsController < ApplicationController
     if org_membership_uuid.nil?
       org_membership_uuid = FutureLearnApi::OrganisationMembership.new.post(external_learner_id: external_learner_id)['uuid']
     end
+  end
+
+  def update_enrolment_request_status(status, status_message)
+    FutureLearnApi::EnrolmentRequest.new.patch(
+      @enrolment_request.uuid,
+      {
+        status: status,
+        status_message: status_message
+      }
+    )
   end
 
   def confirm_enrolment_request(organisation_membership_uuid)

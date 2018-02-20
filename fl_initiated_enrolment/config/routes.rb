@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       member do
         get  :confirm_form
         post :confirm
+        get  :update_status_form
+        post :update_status
       end
     end
   end

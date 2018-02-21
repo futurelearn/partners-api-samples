@@ -15,6 +15,7 @@ module FutureLearnInitiatedEnrolmentSample
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    config.x.admin_password           = ENV['ADMIN_PASSWORD']
     config.x.api_config.consumer_key  = ENV['API_CONSUMER_KEY']
     config.x.api_config.shared_secret = ENV['API_SHARED_SECRET']
     config.x.api_config.base_url      = ENV['API_BASE_URL']

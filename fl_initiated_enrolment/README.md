@@ -41,7 +41,8 @@ $ cp .env.example .env
 ```
 
 4) Add the API consumer key and shared secret provided by your Partnership
-Manager or technical contact at FutureLearn to the `.env` file
+Manager or technical contact at FutureLearn to the `.env` file. Specify a value
+for `ADMIN_PASSWORD` if you wish to password-protect the admin pages.
 
 5) Install the gems for the application
 

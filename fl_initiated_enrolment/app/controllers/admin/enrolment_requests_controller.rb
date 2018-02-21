@@ -1,4 +1,5 @@
 class Admin::EnrolmentRequestsController < ApplicationController
+  before_action :authenticate_with_admin_password
   before_action :find_enrolment_request, except: [:index]
 
   def index
@@ -32,6 +33,18 @@ class Admin::EnrolmentRequestsController < ApplicationController
   end
 
   private
+
+  def authenticate_with_admin_password
+    return if admin_password.blank?
+
+    authenticate_or_request_with_http_basic('fl-initiated-enrolment-admin') do |username, password|
+      'admin'.casecmp?(username) && password == admin_password
+    end
+  end
+
+  def admin_password
+    Rails.configuration.x.admin_password
+  end
 
   def find_enrolment_request
     @enrolment_request = EnrolmentRequest.find(params[:id])

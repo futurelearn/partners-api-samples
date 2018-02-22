@@ -1,0 +1,2 @@
+module StudentLeadsControllerHelper
+end

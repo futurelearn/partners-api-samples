@@ -1,0 +1,17 @@
+<h1>Student Leads</h1>
+<table>
+  <tr>
+    <th>UUID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email</th>
+  </tr>
+  <% @student_leads.each do |student_lead| %>
+    <tr>
+      <td><%= student_lead.uuid %></td>
+      <td><%= student_lead.first_name %></td>
+      <td><%= student_lead.last_name %></td>
+      <td><%= student_lead.email %></td>
+    </tr>
+  <% end %>
+</table>

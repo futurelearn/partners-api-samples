@@ -24,7 +24,7 @@ In particular, you will need you need:
 
 ```shell
 $ ruby -v
-ruby 2.4.1p111
+ruby 2.4.2
 ```
 
 2) Ensure that you have SQLite3 installed

@@ -82,3 +82,16 @@ application
 To administer the enrolment requests received by the sample application,
 navigate to `http://localhost:3000/admin` (where 3000 is the port number
 the sample application is running on)
+
+## Running system tests
+
+By default, system tests are run with the Selenium driver, using the Chrome browser. You may need to install `chromedriver` before being able to run tests in 'test/system'.
+
+On MacOS, you can do this with Homebrew:
+
+```
+brew tap homebrew/cask
+brew cask install chromedriver
+``
+
+You can then run the system tests using `bundle exec rails test:system`.

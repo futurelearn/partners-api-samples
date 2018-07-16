@@ -8,7 +8,7 @@ Detailed documentation of this flow and the API credentials required to
 run this application are available from your Partnership Manager or
 technical contact at FutureLearn.
 
-## Pre-requisites
+## Pre-requisites
 
 The system pre-requisites for this application are the same as for the
 [Rails Getting Started Guide](http://guides.rubyonrails.org/getting_started.html).
@@ -77,7 +77,7 @@ the 'Join' or 'Apply button'
  4) You should now be taken to the enrolment form in this sample
 application
 
-## Accessing the sample admin interface
+## Accessing the sample admin interface
 
 To administer the enrolment requests received by the sample application,
 navigate to `http://localhost:3000/admin` (where 3000 is the port number
@@ -89,9 +89,9 @@ By default, system tests are run with the Selenium driver, using the Chrome brow
 
 On MacOS, you can do this with Homebrew:
 
-```
+```bash
 brew tap homebrew/cask
 brew cask install chromedriver
-``
+```
 
 You can then run the system tests using `bundle exec rails test:system`.

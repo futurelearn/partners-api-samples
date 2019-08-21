@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180219175742) do
+ActiveRecord::Schema.define(version: 2018_02_19_175742) do
 
   create_table "enrolment_requests", force: :cascade do |t|
     t.string "uuid"
